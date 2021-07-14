@@ -8,21 +8,22 @@ from Users.models import User
 
 
 class Votaciones(models.Model):
-
+    id = models.IntegerField(primary_key=True)
     user =models.ForeignKey(User,on_delete=models.SET_NULL,null=True, blank=True)
     votaciones = models.IntegerField(default=1)
     boletin = models.ForeignKey('Boletin',on_delete=models.SET_NULL,null=True, blank=True)
 
 class Boletin(models.Model):
-   nombre = models.CharField(max_length=100)
-   descripcion = models.CharField(max_length=200)
-   imagen =models.URLField(max_length = 200,null=True, blank=True)
-   target = models.IntegerField(null=True)
-   frecuencia = models.IntegerField(null=True)
-   created_at = models.DateField(null=True)
-   categorias = models.ManyToManyField(Categoria,blank=True, related_name='categorias')
-   owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    id=models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=200)
+    imagen =models.URLField(max_length = 200,null=True, blank=True)
+    target = models.IntegerField(null=True)
+    frecuencia = models.IntegerField(null=True)
+    created_at = models.DateField(auto_now_add=True)
+    categorias = models.ManyToManyField(Categoria,blank=True, related_name='categorias')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-   def __str__(self):
-      return self.nombre
+    def __str__(self):
+        return self.nombre
 

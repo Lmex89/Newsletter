@@ -14,18 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_queryset(self, request):
-        data = {key: value for key, value in self.request.query_params.items() if key not in [
-            'page']}
+    def list(self, request):
+        serializer_class = UserSerializer(self.queryset, many=True)
+        return Response(serializer_class.data)
 
-        return self.queryset.filter(**data)
-
-    def list(self, request, *args, **kwargs):
-        # item_user_ownwer = Clases.objects.filter(owner_user=self.request.user)
-        item = self.get_queryset(request)
-        page = self.paginate_queryset(item)
-        if page:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-        serializer = self.get_serializer(item, many=True)
-        return Response(serializer.data)
