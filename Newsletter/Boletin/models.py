@@ -20,7 +20,7 @@ class Boletin(models.Model):
    target = models.IntegerField(null=True)
    frecuencia = models.IntegerField(null=True)
    created_at = models.DateField(null=True)
-   categorias = models.ManyToManyField(Categoria, null=True,blank=True)
+   categorias = models.ManyToManyField(Categoria,blank=True, related_name='categorias')
    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
    def __str__(self):

@@ -76,6 +76,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Newsletter.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+    'PAGE_SIZE': 20,
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
