@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Users',
     'Categoria',
     'Boletin',
+    'drf_yasg',
 ]
 
 AUTH_USER_MODEL = 'Users.User'
@@ -160,3 +161,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '4e18dfc72904f0'
+EMAIL_HOST_PASSWORD = 'ff442bdd785a30'
+EMAIL_PORT = '2525'
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
