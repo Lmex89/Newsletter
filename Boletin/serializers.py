@@ -15,5 +15,5 @@ class VotacionesSerializer(serializers.ModelSerializer):
 class BoletinSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model= Boletin
-        fields ='__all__'
+        model = Boletin
+        fields = '__all__'
