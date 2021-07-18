@@ -123,19 +123,43 @@ class VotacionListView(APIView):
     def get(self, request):
         item_ = Boletin.objects.all()
         if item_:
-            serializers = VotacionesSerializer(item_, many=True)
-            return Response(dict(succes=True, data=serializers.data),
-                            status=status.HTTP_200_OK)
-        return Response(dict(succes=False, data=['No existen boletines']),
-                        status=status.HTTP_204_NO_CONTENT)
+            serializers = VotacionesSerializer(
+                item_,
+                many=True
+            )
+            return Response(
+                dict(
+                    succes=True,
+                    data=serializers.data
+                ),
+                status=status.HTTP_200_OK
+            )
+        return Response(
+            dict(
+                succes=False,
+                data=['No existen boletines']
+            ),
+            status=status.HTTP_204_NO_CONTENT
+        )
 
     def post(self, request):
         request.POST._mutable = True
-        serializers = VotacionesSerializer(data=request.data,
-                                           partial=True)
+        serializers = VotacionesSerializer(
+            data=request.data,
+            partial=True
+        )
         if serializers.is_valid():
-            return Response(dict(succes=True, data=serializers.data),
-                            status=status.HTTP_201_CREATED)
-        return Response(dict(succes=False,
-                             data=[serializers.errors]),
-                        status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    sucess=True,
+                    data=serializers.data
+                ),
+                status=status.HTTP_200_OK
+            )
+        return Response(
+            dict(
+                succes=False,
+                data=[serializers.errors]
+            ),
+            status=status.HTTP_400_BAD_REQUEST
+        )

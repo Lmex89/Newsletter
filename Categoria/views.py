@@ -41,7 +41,10 @@ class CategoriaViewDetail(APIView):
 
         try:
             item_categoria = Categoria.objects.get(pk=pk)
-            serializers = CategoriaSerializer(data=request.data, partial=True)
+            serializers = CategoriaSerializer(
+                data=item_categoria,
+                partial=True
+            )
             if serializers.is_valid():
                 return Response(
                     dict(
