@@ -13,10 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from Categoria.views import CategoriaListView
+from Categoria.views import CategoriaListView, CategoriaViewDetail
 from django.contrib import admin
 from django.urls import path, include
-from Boletin.views import BoletinListView, BoletinViewsDetail, VotacionListView, VotacionViewsDetail
+from Boletin.views import BoletinListView, BoletinViewsDetail,\
+    VotacionListView, VotacionViewsDetail
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -36,8 +37,6 @@ urlpatterns = [
     path('api/v1/votacion/<int:pk>', VotacionViewsDetail.as_view()),
     path('api/v1/votacion/', VotacionListView.as_view()),  # GET as List - POST
     # -- ENDPOINT PARA CATEGORIAS --
-    path('api/v1/categoria/<int:pk>', CategoriaViewDetail.as_view(),
-    path('api/v1/categoria/', CategoriaListView.as_view())
-
-
+    path('api/v1/categoria/<int:pk>', CategoriaViewDetail.as_view()),
+    path('api/v1/categoria/', CategoriaListView.as_view()),
 ]

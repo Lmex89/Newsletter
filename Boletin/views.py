@@ -20,7 +20,13 @@ class BoletinViewsDetail(APIView):
         try:
             item_boletines = Boletin.objects.get(pk=pk)
             serializers = BoletinSerializer(item_boletines)
-            return Response(data=serializers.data, status=status.HTTP_200_OK)
+            return Response(
+                dict(
+                    sucess=True,
+                    data=serializers.data,
+                ),
+                status=status.HTTP_200_OK
+            )
         except Exception as error:
             return Response(dict(success=False, data=['Boletin id  Invalido']))
 
@@ -31,27 +37,45 @@ class BoletinViewsDetail(APIView):
             item_boletines = Boletin.objects.get(pk=pk)
             serializers = BoletinSerializer(data=item_boletines, partial=True)
             if serializers.is_valid():
-                return Response(data=serializers.data,
-                                status=status.HTTP_200_OK)
-            return Response(dict(success=False,
-                                 data=[serializers.errors[error][0] for error in serializers.errors]),
-                            status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    dict(
+                        success=True,
+                        data=serializers.data
+                    ),
+                    status=status.HTTP_200_OK
+                )
+            return Response(
+                dict(
+                    success=False,
+                    data=[serializers.errors]
+                ),
+                status=status.HTTP_400_BAD_REQUEST
+            )
         except Exception as error:
-            return Response(dict(success=False,
-                                 data=['Boletin id  Invalido', str(error)]),
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    success=False,
+                    data=['Boletin id  Invalido', str(error)]
+                ),
+                status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         try:
             item_boletin = Boletin.objects.get(pk=pk)
             item_boletin.delete()
-            return Response(dict(succes=True,
-                                 data=['id eliminado correctamente']),
-                            status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                dict(
+                    succes=True,
+                    data=['id eliminado correctamente']
+                ),
+                status=status.HTTP_204_NO_CONTENT)
         except Exception as error:
-            return Response(dict(success=False,
-                                 data=['Boletin id  Invalido', str(error)]),
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    success=False,
+                    data=['Boletin id  Invalido', str(error)]
+                ),
+                status=status.HTTP_400_BAD_REQUEST)
 
 
 class BoletinListView(APIView):
@@ -61,20 +85,35 @@ class BoletinListView(APIView):
         item_boletines = Boletin.objects.all()
         if item_boletines:
             serializers = BoletinSerializer(item_boletines, many=True)
-            return Response(dict(succes=True, data=serializers.data),
-                            status=status.HTTP_200_OK)
-        return Response(dict(succes=False, data=['No existen boletines']),
-                        status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                dict(
+                    succes=True,
+                    data=serializers.data
+                ),
+                status=status.HTTP_200_OK)
+        return Response(
+            dict(
+                succes=False,
+                data=['No existen boletines']
+            ),
+            status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request):
         request.POST._mutable = True
         serializers = BoletinSerializer(data=request.data, partial=True)
         if serializers.is_valid():
-            return Response(dict(succes=True, data=serializers.data),
-                            status=status.HTTP_201_CREATED)
-        return Response(dict(succes=False,
-                             data=[serializers.errors]),
-                        status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    succes=True,
+                    data=serializers.data
+                ),
+                status=status.HTTP_201_CREATED)
+        return Response(
+            dict(
+                succes=False,
+                data=[serializers.errors]
+            ),
+            status=status.HTTP_400_BAD_REQUEST)
 
 
 class VotacionViewsDetail(APIView):
@@ -124,20 +163,26 @@ class VotacionViewsDetail(APIView):
                 dict(
                     success=False,
                     data=['Votacion id  Invalido', str(error)]
-                    ),
+                ),
                 status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         try:
             item_ = Votaciones.objects.get(pk=pk)
             item_.delete()
-            return Response(dict(succes=True,
-                                 data=['id eliminado correctamente']),
-                            status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                dict(
+                    succes=True,
+                    data=['id eliminado correctamente']
+                ),
+                status=status.HTTP_204_NO_CONTENT)
         except Exception as error:
-            return Response(dict(success=False,
-                                 data=['Votacion id  Invalido', str(error)]),
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    success=False,
+                    data=['Votacion id  Invalido', str(error)]
+                ),
+                status=status.HTTP_400_BAD_REQUEST)
 
 
 class VotacionListView(APIView):
