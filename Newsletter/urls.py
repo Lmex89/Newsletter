@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/v1/votacion/<int:pk>', VotacionViewsDetail.as_view()),
     path('api/v1/votacion/', VotacionListView.as_view()),  # GET as List - POST
     # -- ENDPOINT PARA CATEGORIAS --
+    path('api/v1/categoria/<int:pk>', CategoriaViewDetail.as_view(),
     path('api/v1/categoria/', CategoriaListView.as_view())
 
 

@@ -84,9 +84,20 @@ class VotacionViewsDetail(APIView):
         try:
             item_ = Votaciones.objects.get(pk=pk)
             serializers = VotacionesSerializer(item_)
-            return Response(data=serializers.data, status=status.HTTP_200_OK)
+            return Response(
+                dict(
+                    sucess=True,
+                    data=serializers.data,
+                ),
+                status=status.HTTP_200_OK
+            )
         except Exception as error:
-            return Response(dict(success=False, data=['Boletin id  Invalido']))
+            return Response(
+                dict(
+                    success=False,
+                    data=['Boletin id  Invalido']
+                )
+            )
 
     def put(self, request, pk):
         try:
@@ -94,15 +105,27 @@ class VotacionViewsDetail(APIView):
             serializers = VotacionesSerializer(
                 data=item_, partial=True)
             if serializers.is_valid():
-                return Response(data=serializers.data,
-                                status=status.HTTP_200_OK)
-            return Response(dict(success=False,
-                                 data=[serializers.errors]),
-                            status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    dict(
+                        sucess=True,
+                        data=serializers.data
+                    ),
+                    status=status.HTTP_200_OK
+                )
+            return Response(
+                dict(
+                    success=False,
+                    data=[serializers.errors]
+                ),
+                status=status.HTTP_400_BAD_REQUEST
+            )
         except Exception as error:
-            return Response(dict(success=False,
-                                 data=['Votacion id  Invalido', str(error)]),
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                dict(
+                    success=False,
+                    data=['Votacion id  Invalido', str(error)]
+                    ),
+                status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         try:
